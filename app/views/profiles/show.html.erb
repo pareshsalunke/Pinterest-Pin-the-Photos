@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h1><%= @user.full_name %></h1>
+</div>
+
+<% if signed_in? %>
+  <div id="friend-status">
+    <% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) and current_user.id != @user.id %>
+      <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: 'btn' %>
+    <% elsif  current_user.id != @user.id %>
+      <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: 'btn', id: 'add-friendship', data: { friend_id: @user.to_param } %>
+
+      
+    <% end %>
+  </div>
+  <% followers = Follow.where(:followed_id=>@user.id).count %>
+  <%= "Followers : " + followers.to_s %><br>
+  <% following = Follow.where(:user_id=>@user.id).count %>
+  <%= "Following : " + following.to_s %>
+      <% if current_user.already_follows_user?(@user.id) %>
+        <% follow = Follow.where(:user_id=>current_user.id).where(:followed_id=>@user.id).first %>
+        
+        <%= button_to("Unfollow", follow_path(follow.id), :action => "delete", :method => :delete)%>
+   
+      <% else %>
+          
+          <%= form_tag follows_path do %>
+            <%= hidden_field_tag 'user_id', @user.id %>
+            <%= submit_tag "Follow", :class => "follow_button" %>
+          <% end %>
+      <% end %>
+  
+  
+
+  <% if @statuses %>
+    <% @statuses.each do |status| %>
+      <div class="well">
+        <%= status.content %>
+        <hr />
+        <%= link_to time_ago_in_words(status.created_at), status_path(status) %> ago
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+

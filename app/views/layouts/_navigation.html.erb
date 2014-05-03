@@ -1,0 +1,22 @@
+
+<ul class="nav">
+  <li><%= link_to "Home", root_path, :class => 'home' %></li>
+  <% if user_signed_in? %>
+    <% if user_signed_in? %>
+      <li><%= link_to('Pictures', "/images") %></li>
+      <li><%= link_to('Statuses', "/statuses") %></li>            
+      <li><%= link_to('Boards', "/boards") %></li>
+      <li><%= link_to 'Friends', "/user_friendships"  %></li>
+      <li><%= link_to 'Pins', "/pins"  %></li>  
+    </li>
+    <% end %>  
+    <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+    <% else %>
+      <li><%= link_to 'Login', new_user_session_path %></li>
+    <% end %>
+  <% if user_signed_in? %>
+    <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+  <% else %>
+    <li><%= link_to 'Sign up', new_user_registration_path %></li>
+  <% end %>
+</ul>

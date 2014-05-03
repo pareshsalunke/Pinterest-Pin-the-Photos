@@ -1,0 +1,29 @@
+<h1>Listing pins</h1>
+
+<table>
+  <tr>
+    <th>Pic</th>
+    <th>User</th>
+    <th>Board</th>
+    <th>Pin time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pins.each do |pin| %>
+    <tr>
+    <td><%= image_tag Image.find_by_id(pin.pic).photo.url(:small) %></td>
+    <td><%= User.find_by_id(pin.user).full_name %></td>
+    <td><%= Board.find_by_id(pin.board).board_title %></td>
+    <td><%= pin.pin_time %></td>
+    <td><%= link_to 'Show', pin %></td>
+    <td><%= link_to 'Edit', edit_pin_path(pin) %></td>
+    <td><%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pin', new_pin_path %>

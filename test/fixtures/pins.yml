@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  pic: 1
+  user: 1
+  board: 1
+  pin_time: 2013-12-13 18:35:55
+
+two:
+  pic: 1
+  user: 1
+  board: 1
+  pin_time: 2013-12-13 18:35:55

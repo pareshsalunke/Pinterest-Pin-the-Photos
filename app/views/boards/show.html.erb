@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Board title:</b>
+  <%= @board.board_title %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= User.find_by_id(@board.user).full_name %>
+</p>
+
+<p>
+  <b>Catergory:</b>
+  <%= Category.find_by_id(@board.category).category_name %>
+</p>
+<%= link_to 'Back', boards_path %>
+<% if @board.user == current_user.id %>
+<%= link_to 'Edit', edit_board_path(@board) %> |
+
+<td><%= button_to "Delete", @board, :method => :delete %></td>
+<% end %>
+<table>
+  <tr>
+    <th>Pic</th>
+    <th>User</th>
+    <th>Board</th>
+    <th>Pin time</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @pins = Pin.where(:board => @board.id) %>
+<% @pins.each do |pin| %>
+    <tr>
+    <td><%= image_tag Image.find_by_id(pin.pic).photo.url(:small) %></td>
+    <td><%= User.find_by_id(pin.user).full_name %></td>
+    <td><%= Board.find_by_id(pin.board).board_title %></td>
+    <td><%= pin.pin_time %></td>
+    <td><%= link_to 'Show', pin %></td>
+    <% if pin.user == current_user.id %>
+      <td><%= link_to 'Edit', edit_pin_path(pin) %></td>
+      <td><%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,65 @@
+
+
+<p>
+  <b>Pic:</b>
+  <%= image_tag Image.find_by_id(@pin.pic).photo.url %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= User.find_by_id(@pin.user).full_name %>
+</p>
+
+<p>
+  <b>Board:</b>
+  <%= Board.find_by_id(@pin.board).board_title %>
+</p>
+
+<p>
+  <b>Pin time:</b>
+  <%= @pin.pin_time %>
+</p>
+<% count = Like.where(:image_id=>@pin.pic).count %>
+  <%= "No. of likes =" + count.to_s %>
+<% if current_user.already_likes?(@pin.pic) %>
+  <% like = Like.where(:user_id=>current_user.id).where(:image_id=>@pin.pic).first %>
+  
+  <%= button_to("Unlike", like_path(:id => like.id, :pin_id => @pin.id), :action => "delete", :method => :delete)%>
+ 
+<% else %>
+<%= form_tag likes_path do %>
+      <%= hidden_field_tag 'input', @pin.pic %>
+      <%= hidden_field_tag 'pin_id', @pin.id %>
+      <%= submit_tag "Like this image", :class => "like_button" %>
+    <% end %>
+
+<% end %>
+
+
+<% flash.each do |name, msg| %>
+  <div class="alert <%= "alert-#{name}" %>">
+    <%= msg %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_pin_path(@pin) %> |
+<%= link_to 'Back', pins_path %>
+<h1>Comments</h1>  
+
+<ul id="comments">  
+  <% @comments.each do |comment| %>  
+    <li><%= comment.content %></li>  
+  <% end %>  
+</ul>  
+
+<h2>New Comment</h2>  
+<%= form_for [@commentable, @comment] do |f| %> 
+  <ol class="formList">  
+    <li>  
+      <%= f.label :content %>  
+      <%= f.text_area :content, :rows => 3 %>  
+    </li>  
+    <li><%= f.submit "Add comment" %></li>  
+  </ol>  
+<% end %>

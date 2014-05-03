@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Rep description:</b>
+  <%= @report_picture.rep_description %>
+</p>
+
+<p>
+  <b>Action taken:</b>
+  <%= @report_picture.action_taken %>
+</p>
+
+
+<%= link_to 'Edit', edit_report_picture_path(@report_picture) %> |
+<%= link_to 'Back', report_pictures_path %>

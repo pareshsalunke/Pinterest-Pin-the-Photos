@@ -1,0 +1,13 @@
+<%= simple_form_for(@board) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :board_title %>
+    <%= f.hidden_field :user, :value => current_user.id %>
+    <%= f.collection_select :category, Category.order(:category_name), :id,:category_name, include_blank: true  %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

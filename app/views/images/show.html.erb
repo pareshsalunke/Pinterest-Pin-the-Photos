@@ -1,0 +1,27 @@
+<%- model_class = Image -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:web_url) %>:</strong></dt>
+  <dd><%= @image.web_url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @image.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:uid) %>:</strong></dt>
+  <dd><%= @image.uid %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:photo_file_name) %>:</strong></dt>
+  <dd><%= @image.photo_file_name %></dd>
+  <dd><%= image_tag @image.photo %></dd>
+  <dd><%= @image.photo_updated_at %></dd>
+  <dd>Tags: <%= @image.tag_list %></dd>
+  <p>Tags: <%= raw @image.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              images_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_image_path(@image), :class => 'btn' %>
+  <td><%= button_to "Delete", @image, :method => :delete %></td>
+</div>

@@ -1,0 +1,19 @@
+<%= simple_form_for @image, :html => { :class => 'form-horizontal', multipart: true } do |f| %>
+  <%= f.input :web_url , label: "Enter a URL" %>
+  
+    <%= f.file_field :photo %>
+ 
+  <%= f.input :description %>
+  
+  <%= f.hidden_field :uid, :value => current_user.id %>
+  <%= f.hidden_field :photo_updated_at, :value => Time.now() %>
+  <div class="field">
+  <%= f.label :tag_list, "Tags (separated by commas)" %><br />
+  <%= f.input :tag_list %>
+</div>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                images_path, :class => 'btn' %>
+  </div>
+<% end %>

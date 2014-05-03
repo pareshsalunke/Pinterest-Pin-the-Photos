@@ -1,0 +1,29 @@
+<h1>Listing boards</h1>
+
+<table>
+  <tr>
+    <th>Board title</th>
+    <th>User</th>
+    <th>Category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @boards.each do |board| %>
+  <tr>
+    <td><%= link_to board.board_title,board %></td>
+    <td><%= User.find_by_id(board.user).full_name %></td>
+    <td><%= Category.find_by_id(board.category).category_name %></td>
+    
+    <% if board.user == current_user.id %>
+      <td><%= link_to 'Edit', edit_board_path(board) %></td>
+      <td><%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Board', new_board_path %>

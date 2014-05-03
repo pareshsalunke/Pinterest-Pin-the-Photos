@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rep_description: MyString
+  action_taken: MyString
+
+two:
+  rep_description: MyString
+  action_taken: MyString

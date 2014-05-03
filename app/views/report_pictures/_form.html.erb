@@ -1,0 +1,12 @@
+<%= simple_form_for(@report_picture) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :rep_description %>
+    <%= f.input :action_taken %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

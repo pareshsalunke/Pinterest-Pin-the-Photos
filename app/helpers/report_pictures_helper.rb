@@ -1,0 +1,2 @@
+module ReportPicturesHelper
+end
